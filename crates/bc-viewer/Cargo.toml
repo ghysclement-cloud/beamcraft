@@ -1,0 +1,16 @@
+[package]
+name = "bc-viewer"
+description = "BEAMCraft — vue 3D (rendu wgpu hors écran, caméra orbitale Z en haut)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+bc-kernel = { path = "../bc-kernel" }
+wgpu = "30"
+glam = { workspace = true, features = ["bytemuck"] }
+bytemuck = { version = "1", features = ["derive"] }
+
+[dev-dependencies]
+pollster = "0.4"
+png = "0.18"

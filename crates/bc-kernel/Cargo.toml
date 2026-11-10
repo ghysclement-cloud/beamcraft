@@ -1,0 +1,10 @@
+[package]
+name = "bc-kernel"
+description = "BEAMCraft — noyau géométrique (lecture STEP, maillage). Enveloppe OpenCASCADE via cadrum."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+cadrum = { version = "0.9", default-features = false }
+thiserror = "2"

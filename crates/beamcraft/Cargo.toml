@@ -1,0 +1,14 @@
+[package]
+name = "beamcraft"
+description = "BEAMCraft — logiciel open source de CAO / BIM acier."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+default-run = "beamcraft"
+
+[dependencies]
+bc-kernel = { path = "../bc-kernel" }
+bc-viewer = { path = "../bc-viewer" }
+eframe = { version = "0.37", default-features = false, features = ["default_fonts", "wgpu", "accesskit", "wayland", "x11"] }
+egui-wgpu = "0.37"
+rfd = "0.18"

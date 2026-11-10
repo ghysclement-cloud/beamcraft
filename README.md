@@ -9,7 +9,7 @@ Premier module d'un projet plus large de CAO tout-en-un (paramétrique, BIM, arc
 
 | Phase | Contenu | État |
 |---|---|---|
-| **0** | Fenêtre 3D, navigation, ouverture de fichiers STEP | ✅ en cours de test |
+| **0** | Fenêtre 3D, navigation, ouverture de fichiers STEP, noms des corps, interface de la maquette | ✅ |
 | 1 | Esquisse 2D contrainte + extrusion | à venir |
 | 2 | Profils acier, débit, export DSTV | à venir |
 | 3 | Mise en plan : vues, cotes, DXF/PDF | à venir |
@@ -47,7 +47,12 @@ sont rapides.
 | Déplacer | clic droit + glisser, ou Maj + glisser |
 | Zoomer | molette |
 | Cadrer tout | `F` ou double-clic |
-| Ouvrir un STEP | `Cmd + O`, bouton « Ouvrir un STEP… » ou glisser-déposer le fichier |
+| Ouvrir un STEP | `Cmd + O`, bouton « Ouvrir STEP » ou glisser-déposer le fichier |
+| Orienter la vue | cliquer une face du cube de vue, ou les boutons Iso / Dessus / Face / Droite |
+| Masquer une pièce | l'œil à droite de la ligne dans l'arborescence |
+| Barre de commande | `ouvrir`, `exemple`, `iso`, `dessus`, `face`, `droite`, `cadrer`, `ortho`, `thème`, `tout` |
+
+Pour démarrer en thème clair : `BEAMCRAFT_THEME=clair cargo run --release`
 
 ## Organisation du code
 
@@ -67,10 +72,14 @@ un jour, rien d'autre n'est à réécrire.
 ```bash
 cargo test                                            # lance les tests
 cargo run -p bc-viewer --example snapshot -- capture.png   # capture de la vue 3D sans fenêtre
+cargo run -p bc-kernel --example noms -- fichier.step  # liste les corps d'un STEP
 cargo fmt                                             # remet le code en forme
 ```
 
-## Licence
+## Licences
+
+Polices intégrées : Inter et JetBrains Mono (SIL Open Font License, voir `crates/beamcraft/assets/fonts`).
+
 
 Code BEAMCraft : MIT ou Apache-2.0, au choix.
 Le noyau OpenCASCADE (inclus via `cadrum`) est sous licence LGPL-2.1 avec exception.

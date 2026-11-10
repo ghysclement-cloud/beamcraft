@@ -12,3 +12,4 @@ bc-viewer = { path = "../bc-viewer" }
 eframe = { version = "0.37", default-features = false, features = ["default_fonts", "wgpu", "accesskit", "wayland", "x11"] }
 egui-wgpu = "0.37"
 rfd = "0.18"
+egui_extras = { version = "0.37", default-features = false, features = ["svg"] }

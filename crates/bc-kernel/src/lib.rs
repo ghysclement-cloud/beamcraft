@@ -7,6 +7,8 @@
 //!
 //! Phase 0 : lire un fichier STEP et le transformer en maillages affichables.
 
+mod step_names;
+
 use std::path::{Path, PathBuf};
 
 use cadrum::{Solid, Tessellation};
@@ -124,7 +126,29 @@ pub fn load_step(path: impl AsRef<Path>) -> Result<Model, KernelError> {
         source,
     })?;
     let solids = Solid::read_step(&mut file).map_err(|e| KernelError::Step(format!("{e:?}")))?;
-    model_from_solids(path.to_path_buf(), &solids)
+
+    // Noms des corps lus dans le texte du fichier. On ne s'en sert que si on en
+    // trouve exactement un par solide (sinon l'association serait hasardeuse).
+    let text = String::from_utf8_lossy(&std::fs::read(path).unwrap_or_default()).into_owned();
+    let names = step_names::solid_names(&text);
+    let names_ok = names.len() == solids.len();
+
+    let groups: Vec<(String, &[Solid])> = solids
+        .iter()
+        .enumerate()
+        .map(|(i, s)| {
+            let name = if names_ok {
+                step_names::clean_name(&names[i])
+            } else {
+                None
+            };
+            (
+                name.unwrap_or_else(|| format!("Solide {}", i + 1)),
+                std::slice::from_ref(s),
+            )
+        })
+        .collect();
+    model_from_groups(path.to_path_buf(), &groups)
 }
 
 /// Transforme des solides du noyau en `Model` affichable.
